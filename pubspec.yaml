@@ -9,7 +9,6 @@ dependencies:
   args: ^2.0.0
   path: ^1.8.0
   dcli:
-    path: ../dcli/dcli
 dev_dependencies:
   lint_hard: ^4.0.0
   test: ^1.0.0
