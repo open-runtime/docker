@@ -45,7 +45,8 @@ void main() {
     // create volume.
     final volume = Volume.create(name: 'hello_world_volume');
     const mountPoint = '/home/hellow';
-    final container = Container.create(hellow!, volumes: [VolumeMount(volume, mountPoint)]);
+    final container =
+        Container.create(hellow!, volumes: [VolumeMount(volume, mountPoint)]);
     expect(container.image == hellow, isTrue);
     final volumes = container.volumes;
     expect(volumes.length == 1, isTrue);
