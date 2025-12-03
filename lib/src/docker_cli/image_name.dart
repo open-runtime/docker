@@ -76,8 +76,7 @@ class ImageName {
 
   /// Returns true if the passed [image] has the same
   /// name as this image.
-  bool isSameFullname(Image image) =>
-      repository == image.repository && name == image.name && tag == image.tag;
+  bool isSameFullname(Image image) => repository == image.repository && name == image.name && tag == image.tag;
 
   /// Takes a docker repo/name:tag string and splits it into
   /// three components.
@@ -137,8 +136,7 @@ class ImageName {
     }
 
     if (name.isEmpty) {
-      throw ArgumentError(
-          'The name component may not be empty. Invalid fullname: $fullname');
+      throw ArgumentError('The name component may not be empty. Invalid fullname: $fullname');
     }
     return ImageName(registry, repository, name, tag);
   }

@@ -22,9 +22,7 @@ class Container {
 
   /// Creates a container from [image] binding the passed
   /// [Volume]s into the container.
-  factory Container.create(Image image,
-      {List<VolumeMount> volumes = const <VolumeMount>[],
-      bool readonly = false}) {
+  factory Container.create(Image image, {List<VolumeMount> volumes = const <VolumeMount>[], bool readonly = false}) {
     var volarg = '';
     if (volumes.isNotEmpty) {
       for (final mount in volumes) {
@@ -35,8 +33,7 @@ class Container {
             ",destination=${mount.mountPath}$readonlyArg'";
       }
     }
-    final containerid =
-        dockerRun('container', 'create $volarg ${image.name}').first;
+    final containerid = dockerRun('container', 'create $volarg ${image.name}').first;
 
     return Containers().findByContainerId(containerid)!;
   }
@@ -82,8 +79,7 @@ class Container {
   List<Volume> get volumes {
     final volumes = <Volume>[];
 
-    final line =
-        dockerRun('inspect', '$containerid --format "{{json .Mounts}}"').first;
+    final line = dockerRun('inspect', '$containerid --format "{{json .Mounts}}"').first;
 
     if (line == '[]') {
       return volumes;
@@ -98,8 +94,7 @@ class Container {
         final name = v['Name']! as String;
         final volume = Volumes().findByName(name);
         if (volume == null) {
-          throw UnknownVolumeException(
-              'The container $containerid contains an unknown Volume $name');
+          throw UnknownVolumeException('The container $containerid contains an unknown Volume $name');
         }
         volumes.add(volume);
       }
@@ -157,10 +152,7 @@ class Container {
   }
 
   /// Returns true if the container is currently running.
-  bool get isRunning =>
-      dockerRun('container', "inspect -f '{{.State.Running}}' $containerid")
-          .first ==
-      'true';
+  bool get isRunning => dockerRun('container', "inspect -f '{{.State.Running}}' $containerid").first == 'true';
 
   /// deletes this docker container.
   void delete() {

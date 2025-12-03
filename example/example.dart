@@ -23,8 +23,7 @@ void main(List<String> args) {
   }
 
   /// create container named alpine_sleep_inifinity
-  final container =
-      alpineImage.create('alpine_sleep_inifinity', argString: 'sleep infinity');
+  final container = alpineImage.create('alpine_sleep_inifinity', argString: 'sleep infinity');
 
   if (Docker().findContainerByName('alpine_sleep_inifinity') == null) {
     // ignore: avoid_print

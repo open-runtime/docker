@@ -22,8 +22,7 @@ class Containers {
     final containerCache = <Container>[];
 
     //if (containerCache.isEmpty) {
-    var args =
-        '''ls --format "table {{.ID}}|{{.Image}}|{{.CreatedAt}}|{{.Status}}|{{.Ports}}|{{.Names}}"''';
+    var args = '''ls --format "table {{.ID}}|{{.Image}}|{{.CreatedAt}}|{{.Status}}|{{.Ports}}|{{.Names}}"''';
     if (!excludeStopped) {
       args += ' --all';
     }
@@ -59,12 +58,7 @@ class Containers {
       }
 
       final container = Container(
-          containerid: containerid,
-          imageid: imageid,
-          created: created,
-          status: status,
-          ports: ports,
-          name: name);
+          containerid: containerid, imageid: imageid, created: created, status: status, ports: ports, name: name);
       containerCache.add(container);
       //}
     }
@@ -87,8 +81,7 @@ class Containers {
   /// it doesn't exist.
   /// By default we include stopped containers.
   /// Set [excludeStopped] to true to ignore stopped containers.
-  Container? findByContainerId(String containerid,
-      {bool excludeStopped = false}) {
+  Container? findByContainerId(String containerid, {bool excludeStopped = false}) {
     final list = containers(excludeStopped: excludeStopped);
     var _containerid = containerid;
 
@@ -108,8 +101,7 @@ class Containers {
   /// If no containers match then an empty list is returned.
   /// By default we include stopped containers.
   /// Set [excludeStopped] to true to ignore stopped containers.
-  List<Container> findByImageid(String? imageid,
-      {bool excludeStopped = false}) {
+  List<Container> findByImageid(String? imageid, {bool excludeStopped = false}) {
     final list = containers(excludeStopped: excludeStopped);
     final matches = <Container>[];
 

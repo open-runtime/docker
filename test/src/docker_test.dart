@@ -17,8 +17,7 @@ void main() {
   setUpAll(() {
     Settings().setVerbose(enabled: true);
     'docker rm hello-world'.start(nothrow: true, progress: Progress.devNull());
-    'docker container rm test_container'
-        .start(nothrow: true, progress: Progress.devNull());
+    'docker container rm test_container'.start(nothrow: true, progress: Progress.devNull());
   });
   test('docker pull', () async {
     final imagePulled = Docker().pull('hello-world');
@@ -34,12 +33,10 @@ void main() {
     final container = Docker().create(imagePulled, 'test_container');
 
     expect(Docker().findContainerById(container.containerid), isNotNull);
-    expect(container.isSame(Docker().findContainerById(container.containerid)!),
-        isTrue);
+    expect(container.isSame(Docker().findContainerById(container.containerid)!), isTrue);
 
     expect(Docker().findContainerByName(container.name), isNotNull);
-    expect(container.isSame(Docker().findContainerByName(container.name)!),
-        isTrue);
+    expect(container.isSame(Docker().findContainerByName(container.name)!), isTrue);
   });
 
   test('docker start/stop container', () async {
@@ -78,13 +75,9 @@ void main() {
 
     final containers = Docker().containers();
 
-    expect(
-        containers.firstWhere((element) => element.name == 'test_container1'),
-        isNotNull);
+    expect(containers.firstWhere((element) => element.name == 'test_container1'), isNotNull);
 
-    expect(
-        containers.firstWhere((element) => element.name == 'test_container2'),
-        isNotNull);
+    expect(containers.firstWhere((element) => element.name == 'test_container2'), isNotNull);
 
     c1.delete();
     c2.delete();
@@ -114,8 +107,7 @@ void main() {
     }
 
     /// create container named alpine_sleep_inifinity
-    final container = alpineImage.create('alpine_sleep_inifinity',
-        argString: 'sleep infinity');
+    final container = alpineImage.create('alpine_sleep_inifinity', argString: 'sleep infinity');
 
     if (Docker().findContainerByName('alpine_sleep_inifinity') == null) {
       print('Huston we have a container');

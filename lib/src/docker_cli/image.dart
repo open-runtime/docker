@@ -22,8 +22,7 @@ class Image {
       required this.imageid,
       required this.created,
       required this.size})
-      : _imageName =
-            ImageName.fromRepositoryAndName(repositoryAndName, tag: tag);
+      : _imageName = ImageName.fromRepositoryAndName(repositoryAndName, tag: tag);
 
   /// Creates an image with the given [imageName].
   /// Note: this doesn't create a docker image just
@@ -85,8 +84,7 @@ class Image {
   /// The [args] and [argString] are appended to the command
   /// and allow you to add abitrary arguments.
   /// The [args] list is added before the [argString].
-  Container create(String containerName,
-      {List<String>? args, String? argString}) {
+  Container create(String containerName, {List<String>? args, String? argString}) {
     if (Containers().findByName(containerName) != null) {
       throw ContainerExistsException(containerName);
     }
@@ -120,11 +118,7 @@ class Image {
   /// This method allows you to do a partial match by
   /// passing only the components you want to match on.
   /// The [name] must be passed.
-  bool isSame(
-      {required String name,
-      String? registry,
-      String? repository,
-      String? tag}) {
+  bool isSame({required String name, String? registry, String? repository, String? tag}) {
     if (registry != null) {
       if (this.registry != registry) {
         return false;
@@ -150,8 +144,7 @@ class Image {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(covariant Image other) =>
-      (identical(this, other)) || imageid == other.imageid;
+  bool operator ==(covariant Image other) => (identical(this, other)) || imageid == other.imageid;
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes

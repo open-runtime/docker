@@ -44,8 +44,7 @@ void main() {
 
     final volume = Volume.create();
 
-    final container =
-        Container.create(image, volumes: [VolumeMount(volume, '/data')]);
+    final container = Container.create(image, volumes: [VolumeMount(volume, '/data')]);
 
     expect(volume.delete, throwsA(isA<DockerCommandFailed>()));
 

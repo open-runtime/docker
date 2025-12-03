@@ -20,8 +20,7 @@ class Volumes {
   List<Volume> volumes() {
     final volumeCache = <Volume>[];
 
-    const args =
-        '''ls --format "table {{.Name}}|{{.Driver}}|{{.Mountpoint}}|{{.Labels}}|{{.Scope}}"''';
+    const args = '''ls --format "table {{.Name}}|{{.Driver}}|{{.Mountpoint}}|{{.Labels}}|{{.Scope}}"''';
 
     final lines = dockerRun('volume', args)
         // remove the heading.

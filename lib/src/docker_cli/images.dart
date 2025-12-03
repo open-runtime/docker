@@ -29,7 +29,7 @@ class Images {
   /// Gets a list of of docker images.
   List<Image> get images {
     if (_imageCache != null) {
-      return _imageCache!;
+      return _imageCache;
     } else {
       return _loadImages();
     }
@@ -37,8 +37,7 @@ class Images {
 
   List<Image> _loadImages() {
     final images = <Image>[];
-    final lines = dockerRun('images',
-            '''--format "table {{.ID}}|{{.Repository}}|{{.Tag}}|{{.CreatedAt}}|{{.Size}}"''')
+    final lines = dockerRun('images', '''--format "table {{.ID}}|{{.Repository}}|{{.Tag}}|{{.CreatedAt}}|{{.Size}}"''')
         // remove the heading.
         .toList()
       ..removeAt(0);
@@ -51,12 +50,8 @@ class Images {
       final created = parts[3];
       final size = parts[4];
 
-      final image = Image(
-          repositoryAndName: repositoryAndName,
-          tag: tag,
-          imageid: imageid,
-          created: created,
-          size: size);
+      final image =
+          Image(repositoryAndName: repositoryAndName, tag: tag, imageid: imageid, created: created, size: size);
       images.add(image);
     }
     // }
@@ -65,8 +60,7 @@ class Images {
   }
 
   /// Returns true if an image with the given id returns true.
-  bool existsByImageId({required String imageid}) =>
-      findByImageId(imageid) != null;
+  bool existsByImageId({required String imageid}) => findByImageId(imageid) != null;
 
   /// Returns true an image exists with the name [fullname].
   ///
@@ -77,10 +71,7 @@ class Images {
       findByName(fullname) != null;
 
   /// Returns true an image exists with the given  name parts.
-  bool existsByParts(
-          {required String repository,
-          required String name,
-          required String tag}) =>
+  bool existsByParts({required String repository, required String name, required String tag}) =>
       findByParts(repository: repository, name: name, tag: tag).isNotEmpty;
 
   /// Finds an image with the given [imageid].
@@ -129,18 +120,14 @@ class Images {
 
     verbose(() => 'Match ${match.repository} ${match.name} ${match.tag}');
 
-    final list = findByParts(
-        repository: match.repository, name: match.name, tag: match.tag);
+    final list = findByParts(repository: match.repository, name: match.name, tag: match.tag);
     return list;
   }
 
   /// Returns a list of images that match the passed
   /// parts. The [name] part is the only compulsory part.
   /// If no matches are found then an empty list is returned
-  List<Image> findByParts(
-      {required String? repository,
-      required String name,
-      required String? tag}) {
+  List<Image> findByParts({required String? repository, required String name, required String? tag}) {
     final list = images;
     final found = <Image>[];
 

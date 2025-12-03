@@ -11,8 +11,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('build ...', () async {
-    final pathToHelloDocker = join(DartProject.self.pathToProjectRoot, 'test',
-        'fixtures', 'hello.dockerfile');
+    final pathToHelloDocker = join(DartProject.self.pathToProjectRoot, 'test', 'fixtures', 'hello.dockerfile');
     build(
       pathToDockerFile: pathToHelloDocker,
       imageName: 'hello',

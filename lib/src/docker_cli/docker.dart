@@ -43,16 +43,14 @@ class Docker {
 
   /// Searches for a container with the given [containerId].
   /// Returns null if a container could not be found.
-  Container? findContainerById(String containerId) =>
-      Containers().findByContainerId(containerId);
+  Container? findContainerById(String containerId) => Containers().findByContainerId(containerId);
 
   /// Searches for a container with the given [containerName].
   /// If more than container has the same name the first
   /// container will be returned.
   /// Use [containers] to get a complete list of containers.
   /// Returns null if a container could not be found.
-  Container? findContainerByName(String containerName) =>
-      Containers().findByName(containerName);
+  Container? findContainerByName(String containerName) => Containers().findByName(containerName);
 
   /// Pulls an image from a remote repository.
   /// The fullName is of the form repo/name:tag
@@ -78,8 +76,7 @@ class Docker {
   /// The [args] and [argString] are appended to the command
   /// and allow you to add abitrary arguments.
   /// The [args] list is added before the [argString].
-  Container create(Image image, String containerName,
-          {List<String>? args, String? argString}) =>
+  Container create(Image image, String containerName, {List<String>? args, String? argString}) =>
       image.create(containerName, args: args, argString: argString);
 
   /// Creates and starts a docker container.
@@ -94,10 +91,7 @@ class Docker {
   /// and allow you to add abitrary arguments.
   /// The [args] list is added before the [argString].
   void run(Image image,
-      {List<String>? args,
-      String? argString,
-      List<String> environmentVars = const <String>[],
-      bool daemon = true}) {
+      {List<String>? args, String? argString, List<String> environmentVars = const <String>[], bool daemon = true}) {
     var cmdArgs = '';
 
     if (args != null) {
@@ -125,8 +119,7 @@ class Docker {
   /// Returns a list of containers
   /// If [excludeStopped] is true (defaults to false) then
   /// only running containers will be returned.
-  List<Container> containers({bool excludeStopped = false}) =>
-      Containers().containers(excludeStopped: excludeStopped);
+  List<Container> containers({bool excludeStopped = false}) => Containers().containers(excludeStopped: excludeStopped);
 
   /// Returns the list of volumes
   List<Volume> volumes() => Volumes().volumes();
@@ -134,12 +127,10 @@ class Docker {
   /// internal function to provide a consistent method of handling
   /// failed execution of the docker command.
   List<String> _dockerRun(String cmd, String args, {bool terminal = false}) {
-    final progress = 'docker $cmd $args'
-        .start(nothrow: true, terminal: terminal, progress: Progress.capture());
+    final progress = 'docker $cmd $args'.start(nothrow: true, terminal: terminal, progress: Progress.capture());
 
     if (progress.exitCode != 0) {
-      throw DockerCommandFailed(
-          cmd, args, progress.exitCode!, progress.lines.join('\n'));
+      throw DockerCommandFailed(cmd, args, progress.exitCode!, progress.lines.join('\n'));
     }
     return progress.lines;
   }

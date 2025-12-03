@@ -47,8 +47,7 @@ Image build(
 
   workingDirectory ??= pwd;
 
-  final tag =
-      tagName(repository: repository, imageName: imageName, version: version);
+  final tag = tagName(repository: repository, imageName: imageName, version: version);
 
   final buildArgList = StringBuffer();
   if (buildArgs.isNotEmpty) {
@@ -95,13 +94,8 @@ void publish({required Image image, bool showProgress = true}) {
   'docker push ${image.fullname}'.start(progress: progress);
 }
 
-String tagName(
-        {required String imageName,
-        required String version,
-        String? repository}) =>
-    repository != null
-        ? '$repository/$imageName:$version'
-        : '$imageName:$version';
+String tagName({required String imageName, required String version, String? repository}) =>
+    repository != null ? '$repository/$imageName:$version' : '$imageName:$version';
 
 String tagNameLatest({required String imageName, String? repository}) =>
     repository != null ? '$repository/$imageName:latest' : '$imageName:latest';
